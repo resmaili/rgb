@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Oct 14 14:29:47 2017
 @Description: 
 This code will produce true color RGB, dust RGB, and natural RGB; results are saved as a png.
 Input datasets (L1b or L2) can be accessed from NOAA class: www.class.noaa.gov.
 Requires GOES-16 ABI channels 1-3, 5, 11, 14, and 15 (depending on which imagery you wish to produce).
     
-@author: Rebekah.Esmaili
-"""
+@author: bekah@umd.edu
 
-project_path = "C:\\Users\\rebekah.esmaili\\Desktop\\ML\\"
+project_path = ""
 input_path = project_path + "CMIP\\"
 output_path = project_path + "results\\"
 
