@@ -2,8 +2,8 @@
 """
 @Description: 
 This code will produce true color RGB, dust RGB, and natural RGB; results are saved as a png.
-Input datasets (L1b or L2) can be accessed from NOAA class: www.class.noaa.gov.
-Requires GOES-16 ABI channels 1-3, 5, 11, 14, and 15 (depending on which imagery you wish to produce).
+Input datasets can be accessed from NOAA class: www.class.noaa.gov.
+Requires ABI channels 1-3, 5, 11, 14, and 15 (depending on which imagery you wish to produce).
     
 @author: bekah@umd.edu
 
@@ -13,9 +13,9 @@ output_path = project_path + "results\\"
 
 # Truecolor RGB ------------------------------------------------------------------------------------------------
 # Open channels 1-3 from CMIP files
-Blue = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C01_G16_s20182241447280_e20182241450053_c20182241450136.nc', adjustGamma=True)
-Red = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C02_G16_s20182241447280_e20182241450053_c20182241450168.nc',  adjustGamma=True, rebin=True)
-Veggie = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C03_G16_s20182241447280_e20182241450053_c20182241450128.nc', adjustGamma=True)
+Blue = getRefl(input_path + 'channel1-file.nc', adjustGamma=True)
+Red = getRefl(input_path + 'channel2-file.nc',  adjustGamma=True, rebin=True)
+Veggie = getRefl(input_path + 'channel3-file.nc', adjustGamma=True)
 
 Green = getGreen(Blue, Red, Veggie)
 
@@ -25,9 +25,9 @@ del Veggie
 
 # Dust RGB ------------------------------------------------------------------------------------------------
 # Uses differencing from channels 11, 14, 15
-btC11 = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C11_G16_s20182241447280_e20182241450053_c20182241450109.nc')
-btC14 = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C14_G16_s20182241447280_e20182241450053_c20182241450122.nc')
-btC15 = getRefl(input_path + 'OR_ABI-L2-CMIPC-M3C15_G16_s20182241447280_e20182241450059_c20182241450122.nc')
+btC11 = getRefl(input_path + 'channel11-file.nc')
+btC14 = getRefl(input_path + 'channel14-file.nc')
+btC15 = getRefl(input_path + 'channel15-file.nc')
 
 Red = convert2DustRGB(btC15-btC14, 1.0, (-4.0, 2.0))
 Green = convert2DustRGB(btC14-btC11, 2.5, (-4.0, 5.0))
@@ -39,9 +39,9 @@ del btC11, btC14, btC15
 
 # Natural RGB ------------------------------------------------------------------------------------------------
 # Open channels 2,3,5 
-reflC02 = getRefl(input_path +'OR_ABI-L2-CMIPC-M3C02_G16_s20182241447280_e20182241450053_c20182241450168.nc', rebin=True)
-reflC03 = getRefl(input_path +'OR_ABI-L2-CMIPC-M3C03_G16_s20182241447280_e20182241450053_c20182241450128.nc')
-reflC05 = getRefl(input_path +'OR_ABI-L2-CMIPC-M3C05_G16_s20182241447280_e20182241450054_c20182241450129.nc')
+reflC02 = getRefl(input_path +'channel2-file', rebin=True)
+reflC03 = getRefl(input_path +'channel3-file.nc')
+reflC05 = getRefl(input_path +'channel5-file.nc')
 
 Red = convert2NRGB(reflC05)
 Green = convert2NRGB(reflC03)
